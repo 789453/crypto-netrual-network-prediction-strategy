@@ -46,7 +46,8 @@ def fit_baselines(cache_root: Path, output_root: Path) -> dict:
     y_cal_asym = _target(store, calibration_keys, 0)
     y_cal_return = _target(store, calibration_keys, 3)
     summary = {"train_rows": len(train_keys), "calibration_rows": len(calibration_keys),
-               "validation_rows": len(validation_keys), "feature_count": x_train.shape[1]}
+               "validation_rows": len(validation_keys), "feature_count": x_train.shape[1],
+               "cache_manifest": store.manifest}
     ridge_asym = Ridge(alpha=1000).fit(x_train, y_asym)
     ridge_return = Ridge(alpha=1000).fit(x_train, y_return)
     ridge_pred = np.column_stack((
@@ -92,6 +93,9 @@ def fit_baselines(cache_root: Path, output_root: Path) -> dict:
 
 def predict_baseline(cache_root: Path, output_root: Path, split: str = "test") -> None:
     store = PreparedStore(cache_root)
+    summary = json.loads((output_root / "summary.json").read_text(encoding="utf-8"))
+    if "cache_manifest" in summary and summary["cache_manifest"] != store.manifest:
+        raise ValueError("feature cache changed since baseline training")
     keys = store.splits[split]
     x = snapshot_features(store, keys)
     weights = np.load(output_root / "ridge_weights.npz")

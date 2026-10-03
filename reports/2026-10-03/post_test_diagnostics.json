@@ -1,0 +1,46 @@
+{
+  "status": "post-test exploratory diagnostic; no model, threshold or policy change",
+  "block_days": 7,
+  "bootstrap_draws": 2000,
+  "seed": 20261003,
+  "models": {
+    "logratio4h_seed20261003": {
+      "predicted_asym_vs_observed_asym": {
+        "correlation": 0.03318590190874257,
+        "block_bootstrap_95pct_interval": [
+          0.004120120703618252,
+          0.05994990749104372
+        ],
+        "positive_resample_fraction": 0.986
+      },
+      "calibrated_score_vs_executable_return": {
+        "correlation": -0.03403016988411146,
+        "block_bootstrap_95pct_interval": [
+          -0.06878699161230266,
+          0.013003674859294916
+        ],
+        "positive_resample_fraction": 0.078
+      },
+      "observed_future_asym_vs_executable_return": 0.7539094107948173
+    },
+    "joint4h_seed20261023": {
+      "predicted_asym_vs_observed_asym": {
+        "correlation": 0.011655022712509159,
+        "block_bootstrap_95pct_interval": [
+          -0.012945218767245083,
+          0.03496762426224044
+        ],
+        "positive_resample_fraction": 0.81
+      },
+      "calibrated_score_vs_executable_return": {
+        "correlation": -0.04377054347862719,
+        "block_bootstrap_95pct_interval": [
+          -0.08274437729233947,
+          0.00940521366905491
+        ],
+        "positive_resample_fraction": 0.0565
+      },
+      "observed_future_asym_vs_executable_return": 0.7539094107948173
+    }
+  }
+}

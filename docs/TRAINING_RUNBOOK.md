@@ -1,6 +1,6 @@
 # 训练协议与可复现运行
 
-状态：2026-10-03。此文档记录**已实现的训练代码和固定协议**。量化结果由 `outputs/evaluation/` 的冻结选择与测试报告生成后另行发布。源数据、缓存和权重均在本机 `outputs/`，被 `.gitignore` 排除。
+状态：2026-10-03。此文档记录**已执行的训练代码和固定协议**。11 组网络、基线、验证选择及一次冻结测试均已完成；数值和失败解释见[完整报告](../reports/2026-10-03/README.md)。源数据、缓存和权重均在本机 `outputs/`，被 `.gitignore` 排除。
 
 ## 1. 时间和样本
 
@@ -24,7 +24,9 @@
 - **显式统计**：16 个快通道各取末值、最近 1h 均值、4h 均值、24h 均值和 24h 标准差，共 80 维。
 - **市场状态**：BTC/ETH 动量/波动、广度/离散度及本币对 BTC 的过去 7 日 beta、残差、相关，共 10 维。
 
-每个值通道有独立有效性 mask。对每合约每通道，**仅用训练期**样本拟合中位数与 `IQR/1.349`，标准化后截到 `[-8,8]`；无观测值在数值张量置零，同时保留 mask。快序列取训练期每小时一个样本估计分位数，变换应用于所有 5m。预热不足处不进入训练。当前版本没有盘口、OI、链上、mark/index 或 funding 作为模型输入；资金费率仅在策略事后账本按历史结算事件计入。
+每个值通道有独立有效性 mask。对每合约每通道，**仅用训练期**样本拟合中位数与 `IQR/1.349`，标准化后截到 `[-8,8]`；无观测值在数值张量置零，同时保留 mask。快序列取训练期每小时一个样本估计分位数，变换应用于所有 5m。预热不足处不进入训练。主缓存 `cache_v1` 没有盘口、OI、链上、mark/index 或 funding 作为模型输入；资金费率仅在策略事后账本按历史结算事件计入。
+
+独立挑战缓存 `cache_v2` 保留 v1 的全部样本和标签，只在市场状态后增加 6 个通道：已收盘 mark/index 对数基差、基差 4h 变化、mark 与 index 的 1h 收益、上一笔已结算资金费率及其陈旧小时数。mark/index 的完整小时 K 线要到 `close_time+1ms+5min` 才可见；funding 事件要到 `event_time+5min` 才可见，并有 2h/16h 最大陈旧时间。OI、持仓比和链上仍不进入模型。该增强组必须以同一训练种子与主模型做验证配对比较，不能改变测试边界或使用未来 funding。
 
 ## 3. 网络与目标
 
@@ -45,15 +47,28 @@
 conda activate universal
 $env:PYTHONPATH = (Join-Path (Get-Location) 'src')
 python scripts/build_cache.py
+python scripts/build_derivative_cache.py
 python scripts/run_baselines.py
 python scripts/train_network.py --mode joint4h --output outputs/models/joint4h_seed20261003
 ./scripts/run_experiments.ps1
 python scripts/select_models.py
 python scripts/final_test.py
+python scripts/diagnose_frozen_test.py
+python scripts/publish_results.py
+python scripts/build_figures.py
 python -m pytest -q
 ```
 
 `scripts/run_experiments.ps1` 跳过已存在 `summary.json` 的完成运行，可从下一组继续。每组保留 `history.jsonl`、控制台日志、`last.pt`、`best.pt`、训练汇总与验证预测；`last.pt` 可按同配置从最近轮继续。对测试期的推理只读取已冻结的 `outputs/evaluation/selection.json`，不会修改它。
+
+后续 `diagnose_frozen_test.py` 仅做测试后解释性统计，不调整选择或阈值。`publish_results.py` 将本地原始 JSON 中无定义的诊断 `NaN` 转成公开版标准 JSON `null`，并保存源文件哈希；图表由冻结文件生成。冻结选择文件的 SHA-256 为 `fa295cb9407f9e31bae8326da78b40322643fbe91ef67539b882a218924650a2`。
+
+衍生挑战训练命令：
+
+```powershell
+python scripts/train_network.py --cache outputs/cache_v2 --mode joint4h `
+  --seed 20261003 --output outputs/models/joint4h_derivatives_seed20261003
+```
 
 ## 5. 当前协议边界
 

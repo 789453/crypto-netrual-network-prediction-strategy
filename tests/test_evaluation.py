@@ -25,3 +25,12 @@ def test_no_trade_has_zero_cost_and_funding() -> None:
     funding = np.ones((1, 12), np.float32) * .01
     result = _phase_metrics(keys, np.zeros(12), np.ones(12), funding, dates, 12, None)
     assert result["phases"][0]["cumulative_return"] == 0
+
+
+def test_linear_contract_uses_simple_price_return() -> None:
+    keys = np.arange(12)
+    dates = np.array([np.datetime64("2025-11-01T00:00")])
+    funding = np.zeros((1, 12), np.float32)
+    result = _phase_metrics(keys, np.ones(12), np.full(12, np.log(1.1)), funding,
+                            dates, 12, 0, side_cost=0)
+    np.testing.assert_allclose(result["phases"][0]["cumulative_return"], .1, atol=1e-12)

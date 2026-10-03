@@ -124,7 +124,8 @@ def _phase_metrics(keys: np.ndarray, score: np.ndarray, execution_return: np.nda
                                 np.where(phase_score < -threshold, -1.0, 0.0))
         previous = np.vstack((np.zeros((1, n_symbols)), position[:-1]))
         turnover = np.abs(position - previous)
-        gross = position * execution_return[phase_mask].reshape(-1, n_symbols)
+        # USD-M linear contract PnL on unit notional uses simple price return.
+        gross = position * np.expm1(execution_return[phase_mask].reshape(-1, n_symbols))
         funding_pnl = -position * funding[phase_hour, phase_symbol].reshape(-1, n_symbols)
         net = (gross + funding_pnl - side_cost * turnover).mean(axis=1)
         net[-1] -= side_cost * np.abs(position[-1]).mean()

@@ -188,7 +188,8 @@ def train(cache_root: Path, output_root: Path, cfg: TrainConfig) -> dict:
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     store = PreparedStore(cache_root)
     model_cfg = ModelConfig(fast_blocks=cfg.fast_blocks, use_slow=cfg.use_slow,
-                            use_stats=cfg.use_stats, use_market=cfg.use_market)
+                            use_stats=cfg.use_stats, use_market=cfg.use_market,
+                            market_dim=store.features["market"].shape[2])
     model = CryptoTimingNetwork(model_cfg).to(device)
     parameters = sum(p.numel() for p in model.parameters())
     optimizer = torch.optim.AdamW(model.parameters(), lr=cfg.learning_rate,
@@ -199,20 +200,34 @@ def train(cache_root: Path, output_root: Path, cfg: TrainConfig) -> dict:
     best_loss = float("inf")
     best_epoch = -1
     start_epoch = 0
+    resume_rng_state = None
+    resume_torch_rng_state = None
+    resume_cuda_rng_state = None
     last_checkpoint = output_root / "last.pt"
     if last_checkpoint.exists():
         saved = torch.load(last_checkpoint, map_location="cpu", weights_only=False)
         if saved["config"] != asdict(cfg):
             raise ValueError("resume configuration differs from checkpoint")
+        if "cache_manifest" in saved and saved["cache_manifest"] != store.manifest:
+            raise ValueError("feature cache changed since last checkpoint")
         model.load_state_dict(saved["model"])
         optimizer.load_state_dict(saved["optimizer"])
         start_epoch = saved["epoch"] + 1
         best_loss, best_epoch = saved["best_loss"], saved["best_epoch"]
+        resume_rng_state = saved.get("rng_state")
+        resume_torch_rng_state = saved.get("torch_rng_state")
+        resume_cuda_rng_state = saved.get("cuda_rng_state")
         print(f"resuming from epoch {start_epoch}", flush=True)
     print(json.dumps({"event": "start", "mode": cfg.mode, "seed": cfg.seed,
                       "parameters": parameters, "train_rows": len(train_keys),
                       "early_validation_rows": len(early_keys), "device": str(device)}), flush=True)
     rng = np.random.default_rng(cfg.seed)
+    if resume_rng_state is not None:
+        rng.bit_generator.state = resume_rng_state
+    if resume_torch_rng_state is not None:
+        torch.set_rng_state(resume_torch_rng_state)
+    if resume_cuda_rng_state is not None and device.type == "cuda":
+        torch.cuda.set_rng_state_all(resume_cuda_rng_state)
     for epoch in range(start_epoch, cfg.max_epochs):
         epoch_started = time.perf_counter()
         model.train()
@@ -256,7 +271,10 @@ def train(cache_root: Path, output_root: Path, cfg: TrainConfig) -> dict:
                          output_root / "best.pt")
         _save_atomic({"model": model.state_dict(), "optimizer": optimizer.state_dict(),
                       "config": asdict(cfg), "epoch": epoch, "best_loss": best_loss,
-                      "best_epoch": best_epoch}, last_checkpoint)
+                      "best_epoch": best_epoch, "rng_state": rng.bit_generator.state,
+                      "torch_rng_state": torch.get_rng_state(),
+                      "cuda_rng_state": torch.cuda.get_rng_state_all() if device.type == "cuda" else None,
+                      "cache_manifest": store.manifest}, last_checkpoint)
         if epoch - best_epoch >= cfg.patience:
             print(f"early stopping after epoch {epoch + 1}", flush=True)
             break
