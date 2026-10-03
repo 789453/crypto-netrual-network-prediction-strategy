@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "crypto-timing-network"
+version = "0.1.0"
+description = "Point-in-time crypto futures timing research"
+requires-python = ">=3.11"
+dependencies = ["numpy", "pandas", "pyarrow", "scikit-learn", "lightgbm", "torch"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+
