@@ -1,0 +1,18 @@
+# Research inputs and generated outputs stay local.
+data/
+*.parquet
+*.feather
+*.arrow
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.zip
+*.tar
+*.log
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.venv/
+outputs/
+checkpoints/

@@ -1,0 +1,45 @@
+# 数据审计与时间可用性合同
+
+审计日期：2026-10-03（北京时间）。数据源为本地 `D:/Trading/practical_crypto_strategy/data/parquet`。以下是文件事实，不是数据已可直接用于无泄漏训练的证明。使用 `universal` 环境的 PyArrow 读取 48 个 Parquet 的 schema、行数及 row-group 空值统计；逐行读取全部 12 个合约的 5m `date` 检查连续性，并抽查 BTC、ETH、SOL 衍生列的首末有效时间。
+
+## 文件与覆盖
+
+| 项目 | 观测 |
+|---|---|
+| 合约 | ADA、AVAX、BCH、BNB、BTC、DOGE、ETH、LINK、LTC、SOL、TRX、XRP，均为 USDT 合约 |
+| 5m | 每合约 392,544 行，合计 4,710,528 行；`date` 从 2023-01-01 00:00 至 2026-09-24 23:55 UTC |
+| 15m | 每合约 130,848 行，合计 1,570,176 行；同一日期范围 |
+| 1h | 每合约 32,712 行，合计 392,544 行；从 2023-01-01 00:00 至 2026-09-24 23:00 UTC |
+| 1m / 盘口 | 本目录没有；不能计算真实买卖价差、深度、microprice、清算逐笔或订单流 |
+| 5m 网格检查 | 12 个合约的 `date` 均无重复、无非 5 分钟相邻间隔；尚未核验 15m/1h 全量格点及逐行 OHLC 合法性 |
+
+基础 K 线均含 `date, open_time, open, high, low, close, volume, close_time, quote_volume, trade_count, taker_buy_volume, taker_buy_quote_volume, taker_sell_volume, taker_buy_ratio, log_return, range_pct, body_pct, vwap` 和常数用途待查的 `ignore`。各合约的 `volume` 类型不完全相同（整数或双精度），入仓须统一浮点类型。5m 的 `taker_buy_ratio`、`vwap` 有极少空值；其余上述主字段的 Parquet 元数据空值率为 0。预制 `log_return` 等衍生列也应重新按原始 OHLCV 定义与缺口规则计算，避免继承未知的预处理语义。
+
+抽样确认 `date` 对应 **K 线开盘时刻**：BTC 的 `2023-01-01 00:00` 5m 行 `open_time=1672531200000`、`close_time=1672531499999`。因此这行 `close/high/low/volume` 在 00:00 不可见，在约 00:05 才完整可见。1h 行同理，00:00 这一行的 `close` 要到约 01:00 才能使用。任何仅按 `date <= 决策时刻` 的合并都会前视。
+
+## 衍生文件：有列不等于有三年历史
+
+每合约有一个 `derivatives/<SYMBOL>.parquet`，约 34,231–34,233 行，时间还延伸至 2026-09-28；基础 5m 截止 9 月 24 日。两者必须按基础行情交集裁剪。下表是各衍生文件的**行级非空比例近似范围**，不是 5m 决策点可用率。由于混合频率，资金费率约 12% 并不代表缺失 88% 的预期结算事件。
+
+| 字段组 | 文件内非空比例 | 实际处理 |
+|---|---:|---|
+| 资金费率 `funding_rate` | 约 12% | 事件流；核定结算时间、数据公布时间和资金费用归属后按已知事件引用 |
+| `mark_close` / `index_close` | 约 95.4–95.6% | 小时 K 线收盘后方可使用；不在小时开始时间提前读取 |
+| OI 两组 `_x` / `_y` | 约 1.5% / 1.1% | 仅短期尾段，来源、频率与重复列含义待查；第一阶段主模型禁用 |
+| 全球/大户多空比、主动买卖比 | 约 1.1% | 仅短期尾段；第一阶段主模型禁用，且不能把它当成成交 K 线自带的 taker 买量 |
+| 部分资产链上日指标 | 约 4% 的小时混合表行；AVAX、BNB、SOL 无相应列 | 日频观测，缺资产且发布时间未证实；第一阶段禁用或设保守一日延迟的独立实验 |
+
+以 BTC 为例：OI `_x` 只有 500 个非空点（2026-09-07 17:00 至 09-28 12:00 UTC），OI `_y` 和多空比各 360 个点（2026-08-29 14:00 至 09-28 12:00 UTC）。BTC 资金费率有 4,100 个事件点，mark 有 32,736 个小时点；两类记录的频率和含义不同。BTC/ETH/SOL 的上述尾段范围相同。源数据说明 `D:/Trading/practical_crypto_strategy/data/parquet/DATA_LAYOUT.md` 也明确 OI/多空接口受回溯点数限制，链上数据资产覆盖不同。
+
+## 建议的 point-in-time 合同
+
+对每个字段保存 `event_time`、`bar_end_time`、`first_known_time`、`source`、`value`、`observed_mask`、`age`。预测时只读取 `first_known_time <= decision_time` 的记录，并限制最大陈旧时间。对于尚无法证明发布时间的列，先不进入主模型。
+
+1. 5m 原始行：`first_known_time = close_time + 1ms + latency_buffer`；对 `date/open_time/close_time` 单位与 5m 网格做核验。
+2. 15m/1h 行：以该行 `close_time` 而非 `date` 判定可见；建议在首版只从 5m 已完成行因果重采样 1h，避免不同文件的结算边界不一致。
+3. funding：区分上一期已结算资金费率和下一期预测费率；当前文件的 `funding_rate` 默认只作为已结算事件的历史记录，具体毫秒偏移需复核。
+4. mark/index：从小时收盘以后计算历史基差，并给出 age 与 mask；价差百分比用同一小时的可见值。
+5. 链上：日期常是统计归属日，不等于公开发布时间。拿不到可靠发布时间时禁用；保守延迟一日只是敏感性方案，不能自动认定无泄漏。
+6. OI/比率：保持原始缺失，不全历史前填、回填或用 0 冒充真实值。即使作为附加专家，也必须先通过至少两个完整时间折的覆盖门槛；目前数据达不到。
+
+入仓前还需完成全合约重复键/缺口、OHLC 不等式、成交量非负、taker 买量不超过总量、5m 重采样与 1h 对账、资金费率事件去重、衍生文件重复来源列归属和 Parquet 哈希清单。这些尚未声称通过。
