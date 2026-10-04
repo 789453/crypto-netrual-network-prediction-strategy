@@ -26,7 +26,8 @@ def _asset(name: str) -> str:
 
 def _fig(name: str) -> None:
     path = OUT / "assets" / f"{name}.svg"
-    plt.savefig(path, bbox_inches="tight", facecolor="#111525")
+    plt.savefig(path, bbox_inches="tight", facecolor="#111525",
+                metadata={"Date": "2026-10-04"})
     path.write_text("\n".join(line.rstrip() for line in path.read_text(encoding="utf-8").splitlines())
                     + "\n", encoding="utf-8")
     plt.close()
@@ -38,7 +39,8 @@ def _style() -> None:
                          "axes.labelcolor": "#edf0fa", "xtick.color": "#aeb8cf",
                          "ytick.color": "#aeb8cf", "text.color": "#edf0fa",
                          "grid.color": "#39435a", "font.size": 10,
-                         "axes.spines.top": False, "axes.spines.right": False})
+                         "axes.spines.top": False, "axes.spines.right": False,
+                         "svg.hashsalt": "crypto-v3-20261004"})
 
 
 def _training_plot() -> None:
@@ -356,12 +358,12 @@ th,td{{padding:11px 13px;text-align:right;border-bottom:1px solid var(--line);fo
 <section id="conclusion"><h2>05 · 结论、限制与复现</h2><p><strong>训练系统已经正常优化。</strong>三次方向训练从约 0.690 的在线 BCE 下降到约 0.671–0.674，验证峰值却出现在第 3–4 轮，之后反弹。早停保护了权重，但并没有创造可迁移的方向映射。小幅信号在校准期跨四月出现，后续对线性基线转负；幅度网络的改善大体可由简洁风险变量解释。这更符合非平稳弱信号与模型灵活度所致的泛化问题，而非梯度无法更新、样本数量太少或标签尺度数值下溢。</p>
 <p><strong>未解决的经济问题：</strong>分档概率只近似收益分布，档内幅度仍用训练期常数；开盘价成交是假设，6bp/侧是情景成本，尚无盘口容量约束；均值预测的绝对校准和阶段漂移仍弱。不能把选择期最佳 Sharpe 当真实未来收益保证，也不能据此扩大模型或微调旧测试区间。</p>
 <p>下一轮研究应先做跨市场状态的因果机制检查、分数中共同市场成分与单币时间成分拆分、训练期拟合的轻量概率收缩和滚动折稳定性。保持当前模型与规则冻结，再用新数据决定是否值得部署；不对已查看历史重搜窗口、阈值或收益符号。</p>
-<footer><p>复现：<code>scripts/build_redesign_cache.py</code> → <code>scripts/run_redesign_baselines.py</code> → <code>scripts/train_redesign.py</code>（三方向种子、一幅度种子）→ <code>scripts/audit_redesign.py</code> → <code>scripts/evaluate_redesign.py --phase select</code> → <code>scripts/calibrate_redesign.py</code> → <code>scripts/evaluate_redesign.py --phase historical</code> → <code>scripts/build_redesign_report.py</code>。审计核对了 {audit['source_sha_verified']} 个原始文件 SHA、{audit['sampled_raw_target_checks']} 个随机目标与执行时点、{audit['checkpoint_manifests_verified']} 份最佳权重的数据合同。训练/预测工件位于 <code>outputs/redesign/</code>；结果 JSON 位于其 <code>evaluation/</code>。原设计依据见 <a href="../../docs/TRAINING_REDESIGN_2026-10-04.md">重设计文档</a>，旧结果见 <a href="../2026-10-03/README.md">既有报告</a>。</p></footer></section>
+<footer><p>复现：<code>scripts/build_redesign_cache.py</code> → <code>scripts/run_redesign_baselines.py</code> → <code>scripts/train_redesign.py</code>（三方向种子、一幅度种子）→ <code>scripts/audit_redesign.py</code> → <code>scripts/evaluate_redesign.py --phase select</code> → <code>scripts/calibrate_redesign.py</code> → <code>scripts/evaluate_redesign.py --phase historical</code> → <code>scripts/build_redesign_report.py</code>。审计核对了 {audit['source_sha_verified']} 个原始文件 SHA、{audit['sampled_raw_target_checks']} 个随机目标与执行时点、{audit['checkpoint_manifests_verified']} 份最佳权重的数据合同。训练/预测工件位于 <code>outputs/redesign/</code>；结果 JSON 位于其 <code>evaluation/</code>。文字版见 <a href="../../docs/V3_RESEARCH_REPORT_2026-10-04.md">完整研究报告</a>和<a href="../../docs/V3_MODEL_STRATEGY_QA.md">20 个问答</a>；原设计依据见 <a href="../../docs/TRAINING_REDESIGN_2026-10-04.md">重设计文档</a>，旧结果见 <a href="../2026-10-03/README.md">既有报告</a>。</p></footer></section>
 </div></body></html>'''
     (OUT / "index.html").write_text(html_doc, encoding="utf-8")
     readme = f"""# 加密货币择时重设计 v3：训练与验证结果
 
-完整视觉报告：[打开报告](index.html)。生成日期：2026-10-04。
+完整视觉报告：[打开报告](index.html)。文字版：[完整研究报告](../../docs/V3_RESEARCH_REPORT_2026-10-04.md)、[20 个问答](../../docs/V3_MODEL_STRATEGY_QA.md)。生成日期：2026-10-04。
 
 **研究结论：暂不部署。** 方向网络参数 101,573，幅度网络参数 868。2025-07–10 的方向 BCE 相对线性模型增益 {cal['gain_vs_linear']:+.5f}，2025-11–2026-01 为 {sel['gain_vs_linear']:+.5f}；此前已被查看的 2026-02–09 历史为 {seen['gain_vs_linear']:+.5f}。三种随机种子最佳轮次为 4、3、4。
 

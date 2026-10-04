@@ -2,7 +2,7 @@
 
 本仓库实现从 BigAlpha 股票分钟模型迁移到 12 个加密货币永续合约的择时研究。最新核心版本 v3 根据[预测目标与训练结构重设计](docs/TRAINING_REDESIGN_2026-10-04.md)，改用可执行 4 小时简单收益、独立的条件方向与幅度概率模型，以及按方向增量选权重。**当前策略仍不应部署**：神经网络在 2025-07–10 早停校准期超过线性方向基线，但在 2025-11–2026-01 规则选择期优势反转。完整数字和图表见 [v3 视觉报告](reports/redesign_2026-10-04/index.html) 及 [紧凑报告](reports/redesign_2026-10-04/README.md)。原始数据和模型检查点留在本地 `outputs/`，不进入 Git。
 
-从 [v3 重设计](docs/TRAINING_REDESIGN_2026-10-04.md) 阅读现行核心方案，从 [v3 报告](reports/redesign_2026-10-04/index.html) 查看实现与验证结果。从 [迁移设计](docs/CRYPTO_TIMING_DESIGN.md)、[数据审计](docs/DATA_AUDIT.md)、[旧训练协议](docs/TRAINING_RUNBOOK.md)、[旧结果报告](reports/2026-10-03/README.md) 及 [训练失效诊断](docs/TRAINING_FAILURE_DIAGNOSIS_2026-10-04.md) 追溯前一版。
+从 [v3 重设计](docs/TRAINING_REDESIGN_2026-10-04.md) 阅读现行核心方案，从 [完整研究报告](docs/V3_RESEARCH_REPORT_2026-10-04.md) 系统了解任务、数据、网络、训练和实证结果，按 [20 个问答](docs/V3_MODEL_STRATEGY_QA.md)理解常见设计取舍，再打开 [v3 可视化报告](reports/redesign_2026-10-04/index.html)查看图表。从 [迁移设计](docs/CRYPTO_TIMING_DESIGN.md)、[数据审计](docs/DATA_AUDIT.md)、[旧训练协议](docs/TRAINING_RUNBOOK.md)、[旧结果报告](reports/2026-10-03/README.md) 及 [训练失效诊断](docs/TRAINING_FAILURE_DIAGNOSIS_2026-10-04.md) 追溯前一版。
 
 > 仓库 URL 沿用指定的 `netrual` 拼写；研究目标是合约**择时**，不是 12 币横截面中性排序。
 
