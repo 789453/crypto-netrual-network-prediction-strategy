@@ -2,7 +2,7 @@
 
 本仓库实现从 BigAlpha 股票分钟模型迁移到 12 个加密货币永续合约的择时研究。已完成数据合同、因果特征仓、11 组 GPU 网络训练、基线、验证选择与冻结测试。**当前策略未通过样本外测试，不应部署**：验证期选出的模型在 2026-02 至 2026-09 测试期四相位平均净 Sharpe 为 −1.544，零固定交易成本时仍为 −1.040。详见 [完整研究报告](reports/2026-10-03/README.md)。原始数据和模型检查点留在本地 `outputs/`，不进入 Git。
 
-从 [迁移设计](docs/CRYPTO_TIMING_DESIGN.md) 阅读方案，从 [数据审计](docs/DATA_AUDIT.md) 核对实际字段和可用时点，从 [训练协议](docs/TRAINING_RUNBOOK.md) 查看参数与复现流程，从 [结果报告](reports/2026-10-03/README.md) 查看所有实验和冻结测试。
+从 [迁移设计](docs/CRYPTO_TIMING_DESIGN.md) 阅读方案，从 [数据审计](docs/DATA_AUDIT.md) 核对实际字段和可用时点，从 [训练协议](docs/TRAINING_RUNBOOK.md) 查看参数与复现流程，从 [结果报告](reports/2026-10-03/README.md) 查看所有实验和冻结测试，从 [训练失效诊断](docs/TRAINING_FAILURE_DIAGNOSIS_2026-10-04.md) 阅读损失、早停和标签问题的深入分析。
 
 > 仓库 URL 沿用指定的 `netrual` 拼写；研究目标是合约**择时**，不是 12 币横截面中性排序。
 
