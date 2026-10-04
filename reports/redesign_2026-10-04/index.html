@@ -1,0 +1,73 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"><title>Crypto timing · redesign v3</title>
+<style>
+:root{--bg:#0b0e19;--panel:#161c2e;--line:#303a50;--ink:#edf0fa;--muted:#aeb8cf;--mint:#22b8a5;--violet:#a885fa;--amber:#f5ab55}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.7 'Segoe UI','Microsoft YaHei',sans-serif}
+.wrap{max-width:1200px;margin:auto;padding:32px 26px 90px}header{padding:52px 0 36px;border-bottom:1px solid var(--line)}
+.eyebrow{font-size:12px;letter-spacing:.18em;color:var(--mint);font-weight:700;text-transform:uppercase}
+h1{font-size:clamp(32px,5vw,58px);line-height:1.12;margin:14px 0;letter-spacing:-.03em}h2{font-size:25px;margin:58px 0 18px}
+h3{font-size:18px;margin:25px 0 8px}p{max-width:930px;color:var(--muted)}strong{color:var(--ink)}
+.lead{font-size:18px;max-width:900px}.pill{display:inline-block;border:1px solid #634b47;color:#ffcfb5;background:#31221e;border-radius:100px;padding:5px 13px;font-weight:700}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:28px 0}.card,.figure,.note{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px}
+.card .num{font-size:33px;font-weight:800;letter-spacing:-.03em}.card small{display:block;color:var(--muted)}
+.mint{color:var(--mint)}.violet{color:var(--violet)}.amber{color:var(--amber)}.figure{margin:20px 0;padding:18px}
+.figure img{width:100%;display:block}.figure figcaption{font-size:13px;color:var(--muted);padding:4px 10px 6px}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:18px}table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+th,td{padding:11px 13px;text-align:right;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}th:first-child,td:first-child{text-align:left}th{color:var(--muted);font-size:12px}
+.equation{padding:20px;background:#111525;border-left:3px solid var(--violet);font-family:Georgia,serif;font-size:20px;overflow:auto}
+.flow{display:flex;gap:12px;flex-wrap:wrap;margin:20px 0}.step{flex:1;min-width:180px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px}
+.step b{color:var(--mint)}.note{border-left:3px solid var(--amber)}.contents a,footer a{color:var(--mint);text-decoration:none}.contents{display:flex;gap:18px;flex-wrap:wrap;margin-top:25px}
+@media(max-width:800px){.grid,.twocol{grid-template-columns:1fr}.wrap{padding:24px 16px}table{font-size:12px}th,td{padding:7px}}
+</style></head><body><div class="wrap"><header><div class="eyebrow">Research report · 04 Oct 2026 · Version 3</div>
+<h1>加密货币择时模型<br>预测目标与训练结构重设计</h1><p class="lead">把 4 小时可执行收益拆解为<span class="violet">条件方向</span>与<span class="mint">幅度概率</span>，以真实时间顺序验证神经网络是否提供简单模型没有的信号。</p>
+<span class="pill">研究结论：暂不部署</span><nav class="contents"><a href="#contract">时间与数据</a><a href="#model">模型与训练</a><a href="#predictive">预测证据</a><a href="#trade">交易证据</a><a href="#conclusion">结论与复现</a></nav></header>
+<div class="grid"><div class="card"><small>方向主网络</small><div class="num violet">101,573</div><small>参数；独立幅度网络 868 参数</small></div>
+<div class="card"><small>校准期对线性方向 CE 增益</small><div class="num mint">+0.0037</div><small>四个月均为正；早停选择在此期进行</small></div>
+<div class="card"><small>后续选择期对线性方向 CE 增益</small><div class="num amber">-0.0025</div><small>优势未延续；2026 历史同样不支持部署</small></div></div>
+<section id="contract"><h2>01 · 时间、数据与研究合同</h2><p>12 个永续合约、统一 5 分钟 K 线。整点仅使用已完成 bar；5 分钟后按下一开盘价进入，4 小时后按开盘价退出。训练期截至 2025-06-30，2025-07–10 用于逐轮早停，2025-11–2026-01 用于交易规则选择。2026-02–09 曾在旧研究中查看，本文只作探索性历史诊断，<strong>不是新的独立测试集</strong>。</p>
+<div class="flow"><div class="step"><b>Train</b><br>2023 → 2025-06<br>253,944 条小时×合约标签</div><div class="step"><b>Early stop</b><br>2025-07 → 10<br>35,376 条</div><div class="step"><b>Selection</b><br>2025-11 → 2026-01<br>26,448 条</div><div class="step"><b>Seen history</b><br>2026-02 → 09<br>67,920 条</div></div>
+<p>每条训练标签须在本期截止前成熟；标准化、因果波动下限、方向先验和档位代表值只由训练期拟合。小时相位每轮完整覆盖，按分散小时组成 24×12 的批次。训练输入包含过去 12 小时的 5 分钟序列、72 小时的完整小时序列及少量 7/30 日状态。</p></section>
+<section id="model"><h2>02 · 标签、结构与优化</h2><div class="equation">G = P<sub>exit</sub> / P<sub>entry</sub> − 1 &nbsp; · &nbsp; Y = G / v<sub>past</sub><br>q<sub>j</sub> = P(|Y| 在第 j 档 | X) &nbsp; · &nbsp; π<sub>j</sub> = P(Y &gt; 0 | J=j, X)</div>
+<p>幅度档固定为 |Y| 的 [0,.5)、[.5,1)、[1,2)、[2,∞)。方向主干只接受真实幅度档对应的 BCE 梯度；独立小网络接受幅度 CE。快 96/慢 48 的两层因果卷积与 32 维状态投影直接拼接，融合到 96 维后经过一个残差块，输出共享基础方向 logit 和四个收缩档位偏移。没有波动辅助损失更新方向主干。</p>
+<div class="flow"><div class="step"><b>快序列</b><br>144 × 16 + mask<br>TCN 96 × 2 → 末态/近1h/全窗</div><div class="step"><b>慢序列</b><br>72 × 10 + mask<br>TCN 48 × 2 → 末态/全窗</div><div class="step"><b>状态与融合</b><br>24 + mask → 32<br>直接拼接 → 96 → 1 残差块</div><div class="step"><b>独立双输出</b><br>方向 π₁…π₄<br>风险 q₁…q₄ → 收益读出</div></div>
+<p>训练使用 AdamW、2e−4 峰值到 2e−5 余弦衰减、首轮 warmup、时序 dropout .05、融合 dropout .10、梯度裁剪 1.0、最多 12 个完整覆盖轮、耐心 4 轮。三个预设随机种子分别在第 4、3、4 轮达到最佳校准期权重。</p>
+<figure class="figure"><img src="assets/training_dynamics.svg" alt="training_dynamics"><figcaption>虚线是训练在线损失，实线是校准期方向 BCE；彩色圆点是冻结的最佳权重。训练持续改善，前向期不随之改善。</figcaption></figure>
+<table><thead><tr><th>随机种子</th><th>最佳 epoch</th><th>Jul–Oct 相对线性 CE 增益</th><th>Nov–Jan 相对线性 CE 增益</th></tr></thead><tbody><tr><th>20261004</th><td>4</td><td>+0.00373</td><td>-0.00251</td></tr><tr><th>20261005</th><td>3</td><td>+0.00135</td><td>-0.00126</td></tr><tr><th>20261006</th><td>4</td><td>+0.00170</td><td>-0.00257</td></tr></tbody></table></section>
+<section id="predictive"><h2>03 · 预测增量的证据</h2><p>条件方向的交叉熵必须与各档训练期常数先验、同状态低容量 logistic 比较。下表正值表示神经网络优于线性模型。置信区间是按完整跨币面板做 7 日循环移动块、2,000 次重采样的描述性区间；校准期使用它选择 epoch，因此区间不修正模型选择偏差。</p>
+<table><thead><tr><th>时期</th><th>网络 BCE</th><th>线性 BCE</th><th>增益</th><th>95% 块重采样区间</th></tr></thead><tbody><tr><th>2025 Jul–Oct · early stop</th><td>0.68818</td><td>0.69190</td><td>+0.00373</td><td>[+0.00128, +0.00627]</td></tr><tr><th>2025 Nov–2026 Jan · selection</th><td>0.69202</td><td>0.68952</td><td>-0.00251</td><td>[-0.00737, +0.00206]</td></tr><tr><th>2026 Feb–Sep · seen history</th><td>0.69706</td><td>0.69543</td><td>-0.00164</td><td>[-0.00420, +0.00072]</td></tr></tbody></table>
+<figure class="figure"><img src="assets/monthly_direction_gain.svg" alt="monthly_direction_gain"><figcaption>按月等权选权重，不把四个交易相位当成独立实验。竖线分别标出早停与选择期、选择期与已查看历史的边界。</figcaption></figure>
+<figure class="figure"><img src="assets/band_direction_gain.svg" alt="band_direction_gain"><figcaption>仅评价样本真实所属的幅度档。尾档约占训练标签 4.97%，不能靠低幅度档的改善掩盖尾档方向。</figcaption></figure>
+<h3>逐合约方向增量</h3><p>下表是条件方向 BCE 相对同状态 logistic 的增益。三个时期使用同一冻结权重，任何单币改善都没有被重新筛选为新策略。</p>
+<table><thead><tr><th>合约</th><th>Jul–Oct 校准</th><th>Nov–Jan 选择</th><th>已查看 2026 历史</th></tr></thead><tbody><tr><th>ADAUSDT</th><td>+0.0043</td><td>-0.0068</td><td>-0.0040</td></tr><tr><th>AVAXUSDT</th><td>+0.0029</td><td>-0.0007</td><td>-0.0016</td></tr><tr><th>BCHUSDT</th><td>-0.0009</td><td>-0.0014</td><td>+0.0012</td></tr><tr><th>BNBUSDT</th><td>+0.0041</td><td>-0.0010</td><td>-0.0015</td></tr><tr><th>BTCUSDT</th><td>+0.0046</td><td>-0.0012</td><td>+0.0000</td></tr><tr><th>DOGEUSDT</th><td>+0.0050</td><td>-0.0076</td><td>-0.0019</td></tr><tr><th>ETHUSDT</th><td>+0.0079</td><td>-0.0040</td><td>+0.0020</td></tr><tr><th>LINKUSDT</th><td>+0.0038</td><td>-0.0024</td><td>-0.0027</td></tr><tr><th>LTCUSDT</th><td>+0.0050</td><td>-0.0013</td><td>-0.0040</td></tr><tr><th>SOLUSDT</th><td>+0.0029</td><td>-0.0032</td><td>-0.0021</td></tr><tr><th>TRXUSDT</th><td>-0.0005</td><td>+0.0008</td><td>-0.0046</td></tr><tr><th>XRPUSDT</th><td>+0.0056</td><td>-0.0013</td><td>-0.0004</td></tr></tbody></table>
+<h3>幅度是可学的，复杂幅度模型没有稳定增量</h3><table><thead><tr><th>时期</th><th>小 MLP CE</th><th>线性风险 CE</th><th>常数先验 CE</th></tr></thead><tbody><tr><th>Calibration</th><td>1.14337</td><td>1.14223</td><td>1.16289</td></tr><tr><th>Selection</th><td>1.14018</td><td>1.13932</td><td>1.15795</td></tr><tr><th>Seen history</th><td>1.13356</td><td>1.13421</td><td>1.14241</td></tr></tbody></table>
+<figure class="figure"><img src="assets/magnitude_ce.svg" alt="magnitude_ce"><figcaption>幅度网络对常数明显改善，但和线性风险模型相比几乎持平；不应把幅度收益算作方向主干的功劳。</figcaption></figure>
+<p>收益读出使用仅由训练期估计、向正负合并档位均值收缩的正负代表幅度，最后逐样本乘回可见的 v。尾档代表值约为负侧 3.065、正侧 3.077 个尺度单位，不以任意整数或固定上限代替真实尾部。</p>
+<h3>低自由度概率校准的诊断</h3><p>只在 Jul–Oct 校准期拟合共享的方向预测偏移收缩系数 0.745 和幅度概率系数 0.990，向训练期先验收缩，不使用逐币或逐档校准器。下表只做敏感性诊断，不改变此前冻结的交易规则；早停也使用 Jul–Oct，因此该期校准结果有双重使用风险。</p>
+<table><thead><tr><th>时期</th><th>原始方向 CE 增益</th><th>收缩后 CE 增益</th><th>原始收益相关</th><th>收缩后收益相关</th></tr></thead><tbody><tr><th>Jul–Oct 校准</th><td>+0.00373</td><td>+0.00430</td><td>+0.0532</td><td>+0.0523</td></tr><tr><th>Nov–Jan 选择</th><td>-0.00251</td><td>-0.00092</td><td>+0.0208</td><td>+0.0207</td></tr><tr><th>已查看 2026 历史</th><td>-0.00164</td><td>+0.00151</td><td>-0.0020</td><td>-0.0022</td></tr></tbody></table>
+<p>收缩使已查看历史的方向交叉熵相对线性基线略为正，但没有改善收益相关，选择期对线性模型的方向增益仍为负。概率评分更好并不能自动转化成可交易收益。</p>
+<figure class="figure"><img src="assets/score_deciles.svg" alt="score_deciles"><figcaption>按预测简单收益从低到高做全样本十分位。曲线包含共同市场漂移，不能单独视为单币择时 alpha；交易效果还需扣费用、资金费和换手。</figcaption></figure></section>
+<section id="trade"><h2>04 · 交易映射与经济验证</h2><p>12 币等权，−1/0/+1 仓位；四个互不重叠的 4 小时相位分别计算。单边费用和滑点假设为 6bp，并按真实仓位变化收费；资金费按事件区间结算。只在 2025-11–2026-01 从 0、6、12、18bp 预测收益阈值中选择，要求平均参与率至少 5%。四相位共享行情，Sharpe 是描述性比较，不是四份独立置信证据。</p>
+<div class="twocol"><div class="card"><small>选择期最佳经济规则</small><div class="num mint">linear_direction</div><small>阈值 18bp；四相位平均净 Sharpe +0.79；参与率 7.8%</small></div>
+<div class="card"><small>相同冻结规则在已查看历史</small><div class="num amber">-0.81</div><small>四相位平均净 Sharpe；参与率 4.3%，低于选择期门槛</small></div></div>
+<p>方向神经网络在选择期各阈值的平均净 Sharpe 最高仍为 -0.85。经济胜者来自线性方向 + 神经幅度的组合，并且后续已查看历史未保持正收益；因此网络主策略没有完成“方向增量 → 预期收益 → 净交易优势”的三段证据链。</p>
+<figure class="figure"><img src="assets/strategy_sharpe.svg" alt="strategy_sharpe"><figcaption>左柱是各模型选择期阈值中的最好值；右柱是固定或展示用阈值在已查看历史中的表现。不同柱阈值并不总相同，图用于辨认时期衰减，不能用来重新选模。</figcaption></figure>
+<figure class="figure"><img src="assets/signal_sources.svg" alt="signal_sources"><figcaption>整体相关、同时刻 12 币平均分数与平均收益的时间相关、去掉同时刻市场均值后的相关。选择期的收益相关主要来自共同市场时点，不能解释为 12 币相对排序优势。</figcaption></figure>
+<h3>零固定成本与 6bp/侧成本</h3><p>费用不是全部失败原因：选择期网络在零固定成本下为正、加入交易成本后为负；已查看的 2026 历史即使零固定成本也没有转正。资金费仍计入两列，零成本仅去掉固定费和滑点情景。</p>
+<table><thead><tr><th>规则与时期</th><th>零固定成本净 Sharpe</th><th>6bp/侧净 Sharpe</th></tr></thead><tbody>
+<tr><th>网络 · 选择期</th><td>+0.36</td><td>-0.85</td></tr>
+<tr><th>网络 · 已查看历史</th><td>-0.13</td><td>-1.29</td></tr>
+<tr><th>冻结线性方向 · 选择期</th><td>+1.25</td><td>+0.79</td></tr>
+<tr><th>冻结线性方向 · 已查看历史</th><td>-0.50</td><td>-0.81</td></tr>
+</tbody></table>
+<table><thead><tr><th>冻结线性方向策略</th><th>选择期</th><th>已查看历史</th></tr></thead><tbody>
+<tr><th>平均年化换手成本贡献</th><td>-8.4%</td><td>-5.1%</td></tr>
+<tr><th>平均年化资金费贡献</th><td>0.1%</td><td>0.1%</td></tr>
+<tr><th>平均参与率</th><td>7.8%</td><td>4.3%</td></tr>
+</tbody></table>
+<h3>开放尾档代表值敏感性</h3><p>只改变已冻结规则读出中的最高幅度档代表值，不重新选阈值。它是对均值近似的压力测试，不构成新的策略选择。</p><table><thead><tr><th>已查看历史</th><th>四相位平均净 Sharpe</th><th>参与率</th></tr></thead><tbody><tr><th>尾档代表值 × 0.8</th><td>-0.74</td><td>4.1%</td></tr><tr><th>尾档代表值 × 1.0</th><td>-0.81</td><td>4.3%</td></tr><tr><th>尾档代表值 × 1.2</th><td>-0.85</td><td>4.6%</td></tr></tbody></table>
+<div class="note"><strong>防止“测试复活”：</strong>2026 年 2–9 月历史不能因为本次换了标签和网络就重新成为独立测试。当前研究决策是 no_deploy。确认性检验需要在本报告与代码锁定后，等待全新、未参与设计的新数据；也可做多折向前验证，但每折所有训练拟合量都必须重拟合。</div></section>
+<section id="conclusion"><h2>05 · 结论、限制与复现</h2><p><strong>训练系统已经正常优化。</strong>三次方向训练从约 0.690 的在线 BCE 下降到约 0.671–0.674，验证峰值却出现在第 3–4 轮，之后反弹。早停保护了权重，但并没有创造可迁移的方向映射。小幅信号在校准期跨四月出现，后续对线性基线转负；幅度网络的改善大体可由简洁风险变量解释。这更符合非平稳弱信号与模型灵活度所致的泛化问题，而非梯度无法更新、样本数量太少或标签尺度数值下溢。</p>
+<p><strong>未解决的经济问题：</strong>分档概率只近似收益分布，档内幅度仍用训练期常数；开盘价成交是假设，6bp/侧是情景成本，尚无盘口容量约束；均值预测的绝对校准和阶段漂移仍弱。不能把选择期最佳 Sharpe 当真实未来收益保证，也不能据此扩大模型或微调旧测试区间。</p>
+<p>下一轮研究应先做跨市场状态的因果机制检查、分数中共同市场成分与单币时间成分拆分、训练期拟合的轻量概率收缩和滚动折稳定性。保持当前模型与规则冻结，再用新数据决定是否值得部署；不对已查看历史重搜窗口、阈值或收益符号。</p>
+<footer><p>复现：<code>scripts/build_redesign_cache.py</code> → <code>scripts/run_redesign_baselines.py</code> → <code>scripts/train_redesign.py</code>（三方向种子、一幅度种子）→ <code>scripts/audit_redesign.py</code> → <code>scripts/evaluate_redesign.py --phase select</code> → <code>scripts/calibrate_redesign.py</code> → <code>scripts/evaluate_redesign.py --phase historical</code> → <code>scripts/build_redesign_report.py</code>。审计核对了 12 个原始文件 SHA、576 个随机目标与执行时点、4 份最佳权重的数据合同。训练/预测工件位于 <code>outputs/redesign/</code>；结果 JSON 位于其 <code>evaluation/</code>。原设计依据见 <a href="../../docs/TRAINING_REDESIGN_2026-10-04.md">重设计文档</a>，旧结果见 <a href="../2026-10-03/README.md">既有报告</a>。</p></footer></section>
+</div></body></html>
