@@ -1,0 +1,141 @@
+{
+  "passed": true,
+  "result_sha256": "25e5492b25a1e86579a8d34b88fbf9d850d88d7b1b100d2770b904cbb9969182",
+  "accounts": 16,
+  "pytest_passed_tests": 36,
+  "source_files_unchanged": 35,
+  "ledgers": {
+    "A": {
+      "fee_error": 0.0,
+      "nav_error": 1.7763568394002505e-15,
+      "coin_contribution_error": 9.43689570931383e-16,
+      "episode_error": 4.440892098500626e-16,
+      "trade_log_fee_error": 3.2959746043559335e-17
+    },
+    "B": {
+      "fee_error": 0.0,
+      "nav_error": 5.329070518200751e-15,
+      "coin_contribution_error": 3.660266534311063e-15,
+      "episode_error": 3.766339974273225e-11,
+      "trade_log_fee_error": 3.7667050278552064e-11
+    },
+    "C": {
+      "fee_error": 1.734723475976807e-18,
+      "nav_error": 3.3306690738754696e-15,
+      "coin_contribution_error": 2.9837243786801082e-15,
+      "episode_error": 2.789435349370706e-15,
+      "trade_log_fee_error": 8.673617379884035e-19
+    },
+    "D": {
+      "fee_error": 1.734723475976807e-18,
+      "nav_error": 1.7763568394002505e-15,
+      "coin_contribution_error": 9.853229343548264e-16,
+      "episode_error": 9.575673587391975e-16,
+      "trade_log_fee_error": 1.214306433183765e-17
+    },
+    "C_low": {
+      "fee_error": 0.0,
+      "nav_error": 1.5543122344752192e-15,
+      "coin_contribution_error": 1.1934897514720433e-15,
+      "episode_error": 1.1934897514720433e-15,
+      "trade_log_fee_error": 3.0357660829594124e-17
+    },
+    "C_high": {
+      "fee_error": 1.734723475976807e-18,
+      "nav_error": 3.552713678800501e-15,
+      "coin_contribution_error": 3.1502578323738817e-15,
+      "episode_error": 3.219646771412954e-15,
+      "trade_log_fee_error": 6.938893903907228e-18
+    },
+    "old_gate8bp": {
+      "fee_error": 5.551115123125783e-17,
+      "nav_error": 7.771561172376096e-15,
+      "coin_contribution_error": 5.10702591327572e-15,
+      "episode_error": 3.552713678800501e-15,
+      "trade_log_fee_error": 9.43689570931383e-16
+    },
+    "old_gate4bp": {
+      "fee_error": 5.551115123125783e-17,
+      "nav_error": 4.3298697960381105e-15,
+      "coin_contribution_error": 2.9282132274488504e-15,
+      "episode_error": 2.6645352591003757e-15,
+      "trade_log_fee_error": 1.4988010832439613e-15
+    },
+    "rank_guarded": {
+      "fee_error": 5.551115123125783e-17,
+      "nav_error": 1.3100631690576847e-14,
+      "coin_contribution_error": 9.325873406851315e-15,
+      "episode_error": 1.1213252548714081e-14,
+      "trade_log_fee_error": 5.828670879282072e-16
+    },
+    "rank_native": {
+      "fee_error": 0.0,
+      "nav_error": 7.327471962526033e-15,
+      "coin_contribution_error": 6.8833827526759706e-15,
+      "episode_error": 4.440892098500626e-15,
+      "trade_log_fee_error": 5.551115123125783e-17
+    },
+    "selected_no_friction": {
+      "fee_error": 0.0,
+      "nav_error": 5.551115123125783e-15,
+      "coin_contribution_error": 4.1494585545365226e-15,
+      "episode_error": 1.9034718246047078e-11,
+      "trade_log_fee_error": 1.9037986465075818e-11
+    },
+    "selected_expiry12": {
+      "fee_error": 6.938893903907228e-18,
+      "nav_error": 2.4424906541753444e-15,
+      "coin_contribution_error": 5.898059818321144e-16,
+      "episode_error": 5.793976409762536e-16,
+      "trade_log_fee_error": 5.551115123125783e-17
+    },
+    "selected_fee4bp": {
+      "fee_error": 6.938893903907228e-18,
+      "nav_error": 3.1086244689504383e-15,
+      "coin_contribution_error": 1.9845236565174673e-15,
+      "episode_error": 2.0539125955565396e-15,
+      "trade_log_fee_error": 3.469446951953614e-18
+    },
+    "selected_funding": {
+      "fee_error": 0.0,
+      "nav_error": 3.552713678800501e-15,
+      "coin_contribution_error": 2.3592239273284576e-15,
+      "episode_error": 2.3349377986647823e-15,
+      "trade_log_fee_error": 5.377642775528102e-17
+    },
+    "E": {
+      "fee_error": 0.0,
+      "nav_error": 1.1546319456101628e-14,
+      "coin_contribution_error": 1.0436096431476471e-14,
+      "episode_error": 4.277556087117773e-11,
+      "trade_log_fee_error": 4.276368148481424e-11
+    },
+    "E_core_only": {
+      "fee_error": 0.0,
+      "nav_error": 6.439293542825908e-15,
+      "coin_contribution_error": 4.6629367034256575e-15,
+      "episode_error": 3.9968028886505635e-15,
+      "trade_log_fee_error": 5.551115123125783e-17
+    }
+  },
+  "shared_html_markdown_result_identity": true,
+  "twelve_coin_panels": true,
+  "code_sha256": {
+    "scripts/run_signal_control.py": "ad57928bbc64282742f4cc8e6e3f8676cde65cfa426e9f395dbacb22dce373be",
+    "scripts/run_signal_control_extension.py": "191fb3a93c910e38bb7a31f980c32b5b194033807471b0e55750a3f2d046b9c4",
+    "scripts/run_signal_core_ablation.py": "68cb025fc67242072081b7adc660b11c213fb472dc135082711bef3deaf4c3e3",
+    "scripts/analyze_signal_control.py": "d2a168fc12c9cb20b6607c02c64d4081a642c60e5918e23f71c32ed1c2819a2f",
+    "scripts/build_signal_control_report.py": "b7e8ad8554f0cde0f07e5ff4f2a5b3aae00e637a579aa7df4577f8d3004f5056",
+    "scripts/run_signal_control.ps1": "51cde64e001fad092d4786f9836557d1d0cc5c51a62d7f06eb182588723182b1",
+    "scripts/audit_signal_control.py": "3e5e71cf5bfa44ce9257d9a3e1a855ed159332de95833e2994f6df0fb954f7dc",
+    "src/crypto_timing/alpha_control_policy.py": "ac1442286c413601a1dfacaf8604ce76932e30de01e6e47070e204d19623f301",
+    "src/crypto_timing/alpha_account.py": "08836553afc50e1bd31ed803282ab9b4a289959bf307287d356a79e92f3949db",
+    "tests/test_control_position.py": "f2442e0e843352e07d87cbda7e338ac7941b03a3bf0b5ad2407a772d0b663a1d"
+  },
+  "final_protocol_sha256": "5a2820a4c5cdf42ce3e758cd2a6873e330816f02a11619c2e659f2c0dbfa05bb",
+  "center_comparison_protocol_sha256": "1f92c7641843cd2eee8c6537b39211acd4cd970143203f8abd1b0d6e93849cf4",
+  "protocol_note": "Final contract appends the explicitly historical-result-aware E extension; center lock retains its earlier contract identity.",
+  "browser_qa": "Overview rendered; BTC selection changes the visible panel and contribution table; no layout clipping observed.",
+  "maker_fill_or_liquidation_verified": false,
+  "neural_retraining_or_reinference": false
+}

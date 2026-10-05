@@ -1,0 +1,485 @@
+{
+  "date": "2026-10-04",
+  "scope": "Read-only arithmetic audit of existing artifacts; no training, model inference or backtest rerun. Oracle quantities use the evaluation segment retrospectively and are NOT validated corrections.",
+  "signal_decomposition": {
+    "f1_validation": {
+      "mean_signal": 0.03534833597855085,
+      "mean_target": 0.043181664199439224,
+      "std_signal": 0.035992253247771756,
+      "std_target": 1.0392878899007076,
+      "skill": 0.0008906365924994386,
+      "covariance_gain": 0.0004212647623550178,
+      "mean_alignment": 0.0016666560087652495,
+      "variance_penalty": 0.0011972841786209016,
+      "oracle_slope": 0.1759251353510133,
+      "oracle_affine_skill": 0.0017604231284561078,
+      "gap_count": 1,
+      "max_gap_hours": 9.0
+    },
+    "f1_replay": {
+      "mean_signal": 0.04652474731268201,
+      "mean_target": -0.051224207426758685,
+      "std_signal": 0.039887515150952596,
+      "std_target": 1.0571302657360773,
+      "skill": -0.00507265449689509,
+      "covariance_gain": 0.0025352242571042303,
+      "mean_alignment": -0.006187518754237797,
+      "variance_penalty": 0.0014203599997618878,
+      "oracle_slope": 0.8924583406774482,
+      "oracle_affine_skill": 0.0034737660123294934,
+      "gap_count": 0,
+      "max_gap_hours": 1.0
+    },
+    "f2_validation": {
+      "mean_signal": 0.005427982231388263,
+      "mean_target": -0.005097157408398078,
+      "std_signal": 0.041847644443434646,
+      "std_target": 0.972643916659604,
+      "skill": -0.000973213646348059,
+      "covariance_gain": 0.0009674863997980083,
+      "mean_alignment": -8.963211246921059e-05,
+      "variance_penalty": 0.0018510679336767573,
+      "oracle_slope": 0.2613319538943933,
+      "oracle_affine_skill": 0.00015387982445727127,
+      "gap_count": 1,
+      "max_gap_hours": 9.0
+    },
+    "f2_replay": {
+      "mean_signal": 0.0204467714542045,
+      "mean_target": 0.027170240803693093,
+      "std_signal": 0.046995218815364045,
+      "std_target": 0.9923539000327161,
+      "skill": 9.231127618747337e-06,
+      "covariance_gain": 0.001547056342516254,
+      "mean_alignment": 0.0007032103413620297,
+      "variance_penalty": 0.0022410355562594896,
+      "oracle_slope": 0.3451655057848445,
+      "oracle_affine_skill": 0.0010160755324598414,
+      "gap_count": 0,
+      "max_gap_hours": 1.0
+    }
+  },
+  "quality_filter": {
+    "f1_train": {
+      "finite_mature_hours": 21158,
+      "retained_hours": 20782,
+      "removed_fraction": 0.017771055865393705
+    },
+    "f1_validation": {
+      "finite_mature_hours": 2944,
+      "retained_hours": 2936,
+      "removed_fraction": 0.002717391304347826
+    },
+    "f1_replay": {
+      "finite_mature_hours": 2200,
+      "retained_hours": 2200,
+      "removed_fraction": 0.0
+    },
+    "f2_train": {
+      "finite_mature_hours": 26318,
+      "retained_hours": 25934,
+      "removed_fraction": 0.014590774374952504
+    },
+    "f2_validation": {
+      "finite_mature_hours": 2872,
+      "retained_hours": 2864,
+      "removed_fraction": 0.002785515320334262
+    },
+    "f2_replay": {
+      "finite_mature_hours": 2776,
+      "retained_hours": 2776,
+      "removed_fraction": 0.0
+    }
+  },
+  "gradient_budget": {
+    "f1": {
+      "recorded_batches": 275,
+      "weighted_ratio_median": 0.3819627361854286,
+      "weighted_ratio_max": 5.6520672010508965,
+      "ratio_above_one": 33,
+      "cosine_median": -0.011244292370975018
+    },
+    "f2": {
+      "recorded_batches": 340,
+      "weighted_ratio_median": 0.3853527424284907,
+      "weighted_ratio_max": 12.843439873522524,
+      "ratio_above_one": 38,
+      "cosine_median": 0.009202982997521758
+    }
+  },
+  "path_tails": {
+    "f1_validation": {
+      "max_abs_Q": 1661.7855224609375,
+      "top_12_Q_square_share": 0.8445026681274677,
+      "top_one_percent_Q_square_share": 0.999661929288787,
+      "top_12": [
+        {
+          "decision_utc": "2025-10-10T18:00:00.000000000",
+          "symbol": "ADAUSDT",
+          "Q": -1661.7855224609375,
+          "Y4": -16.788362503051758
+        },
+        {
+          "decision_utc": "2025-10-10T19:00:00.000000000",
+          "symbol": "ADAUSDT",
+          "Q": -1643.1265869140625,
+          "Y4": -14.917784690856934
+        },
+        {
+          "decision_utc": "2025-10-10T20:00:00.000000000",
+          "symbol": "ADAUSDT",
+          "Q": -1433.7535400390625,
+          "Y4": -10.464465141296387
+        },
+        {
+          "decision_utc": "2025-10-10T18:00:00.000000000",
+          "symbol": "AVAXUSDT",
+          "Q": -1226.964111328125,
+          "Y4": -14.388337135314941
+        },
+        {
+          "decision_utc": "2025-10-10T19:00:00.000000000",
+          "symbol": "AVAXUSDT",
+          "Q": -1217.0313720703125,
+          "Y4": -14.380609512329102
+        },
+        {
+          "decision_utc": "2025-10-10T20:00:00.000000000",
+          "symbol": "AVAXUSDT",
+          "Q": -1116.4400634765625,
+          "Y4": -13.410463333129883
+        },
+        {
+          "decision_utc": "2025-10-10T18:00:00.000000000",
+          "symbol": "DOGEUSDT",
+          "Q": -825.6895751953125,
+          "Y4": -13.589681625366211
+        },
+        {
+          "decision_utc": "2025-10-10T19:00:00.000000000",
+          "symbol": "DOGEUSDT",
+          "Q": -814.440185546875,
+          "Y4": -10.74183177947998
+        },
+        {
+          "decision_utc": "2025-10-10T18:00:00.000000000",
+          "symbol": "XRPUSDT",
+          "Q": -791.6923828125,
+          "Y4": -14.959717750549316
+        },
+        {
+          "decision_utc": "2025-10-10T18:00:00.000000000",
+          "symbol": "LINKUSDT",
+          "Q": -775.43701171875,
+          "Y4": -15.049001693725586
+        },
+        {
+          "decision_utc": "2025-10-10T19:00:00.000000000",
+          "symbol": "XRPUSDT",
+          "Q": -769.8405151367188,
+          "Y4": -12.117619514465332
+        },
+        {
+          "decision_utc": "2025-10-10T19:00:00.000000000",
+          "symbol": "LINKUSDT",
+          "Q": -769.5081176757812,
+          "Y4": -12.05915355682373
+        }
+      ]
+    },
+    "f1_replay": {
+      "max_abs_Q": 15.458449363708496,
+      "top_12_Q_square_share": 0.1412143531319833,
+      "top_one_percent_Q_square_share": 0.5741523809416141,
+      "top_12": [
+        {
+          "decision_utc": "2026-01-18T22:00:00.000000000",
+          "symbol": "DOGEUSDT",
+          "Q": -15.458449363708496,
+          "Y4": -7.604769706726074
+        },
+        {
+          "decision_utc": "2026-01-18T21:00:00.000000000",
+          "symbol": "DOGEUSDT",
+          "Q": -15.381305694580078,
+          "Y4": -7.5709381103515625
+        },
+        {
+          "decision_utc": "2026-01-18T20:00:00.000000000",
+          "symbol": "DOGEUSDT",
+          "Q": -15.179047584533691,
+          "Y4": -6.95662260055542
+        },
+        {
+          "decision_utc": "2026-01-18T23:00:00.000000000",
+          "symbol": "DOGEUSDT",
+          "Q": -14.478046417236328,
+          "Y4": -6.380204677581787
+        },
+        {
+          "decision_utc": "2026-01-18T21:00:00.000000000",
+          "symbol": "AVAXUSDT",
+          "Q": -11.658692359924316,
+          "Y4": -8.216461181640625
+        },
+        {
+          "decision_utc": "2026-01-18T22:00:00.000000000",
+          "symbol": "AVAXUSDT",
+          "Q": -11.29073429107666,
+          "Y4": -7.66202449798584
+        },
+        {
+          "decision_utc": "2026-01-18T20:00:00.000000000",
+          "symbol": "AVAXUSDT",
+          "Q": -11.26255989074707,
+          "Y4": -7.265812397003174
+        },
+        {
+          "decision_utc": "2025-11-07T14:00:00.000000000",
+          "symbol": "LTCUSDT",
+          "Q": 10.848896980285645,
+          "Y4": 9.19862174987793
+        },
+        {
+          "decision_utc": "2026-01-18T21:00:00.000000000",
+          "symbol": "XRPUSDT",
+          "Q": -10.811833381652832,
+          "Y4": -6.240373611450195
+        },
+        {
+          "decision_utc": "2026-01-18T20:00:00.000000000",
+          "symbol": "XRPUSDT",
+          "Q": -10.757763862609863,
+          "Y4": -6.071296215057373
+        },
+        {
+          "decision_utc": "2026-01-18T21:00:00.000000000",
+          "symbol": "LINKUSDT",
+          "Q": -10.698235511779785,
+          "Y4": -7.046512603759766
+        },
+        {
+          "decision_utc": "2026-01-18T23:00:00.000000000",
+          "symbol": "AVAXUSDT",
+          "Q": -10.692315101623535,
+          "Y4": -6.77872371673584
+        }
+      ]
+    },
+    "f2_validation": {
+      "max_abs_Q": 20.383411407470703,
+      "top_12_Q_square_share": 0.16090898830011297,
+      "top_one_percent_Q_square_share": 0.7146664449886251,
+      "top_12": [
+        {
+          "decision_utc": "2026-03-23T11:00:00.000000000",
+          "symbol": "LINKUSDT",
+          "Q": 20.383411407470703,
+          "Y4": 5.941385746002197
+        },
+        {
+          "decision_utc": "2026-03-23T10:00:00.000000000",
+          "symbol": "LINKUSDT",
+          "Q": 20.165760040283203,
+          "Y4": 4.8795366287231445
+        },
+        {
+          "decision_utc": "2026-03-23T09:00:00.000000000",
+          "symbol": "LINKUSDT",
+          "Q": 19.85062599182129,
+          "Y4": 4.013929843902588
+        },
+        {
+          "decision_utc": "2026-03-23T08:00:00.000000000",
+          "symbol": "LINKUSDT",
+          "Q": 19.204015731811523,
+          "Y4": 2.855034351348877
+        },
+        {
+          "decision_utc": "2026-03-23T11:00:00.000000000",
+          "symbol": "SOLUSDT",
+          "Q": 18.25726318359375,
+          "Y4": 5.663874626159668
+        },
+        {
+          "decision_utc": "2026-03-23T10:00:00.000000000",
+          "symbol": "SOLUSDT",
+          "Q": 18.20093536376953,
+          "Y4": 5.143548488616943
+        },
+        {
+          "decision_utc": "2026-03-23T09:00:00.000000000",
+          "symbol": "SOLUSDT",
+          "Q": 17.99736976623535,
+          "Y4": 4.165225982666016
+        },
+        {
+          "decision_utc": "2026-03-23T11:00:00.000000000",
+          "symbol": "AVAXUSDT",
+          "Q": 17.533098220825195,
+          "Y4": 5.931891918182373
+        },
+        {
+          "decision_utc": "2026-03-23T10:00:00.000000000",
+          "symbol": "AVAXUSDT",
+          "Q": 17.441303253173828,
+          "Y4": 5.727084159851074
+        },
+        {
+          "decision_utc": "2026-03-23T09:00:00.000000000",
+          "symbol": "BNBUSDT",
+          "Q": 17.1550235748291,
+          "Y4": 4.385643482208252
+        },
+        {
+          "decision_utc": "2026-03-23T08:00:00.000000000",
+          "symbol": "SOLUSDT",
+          "Q": 17.15070343017578,
+          "Y4": 2.674535036087036
+        },
+        {
+          "decision_utc": "2026-03-23T09:00:00.000000000",
+          "symbol": "AVAXUSDT",
+          "Q": 17.150657653808594,
+          "Y4": 4.519059658050537
+        }
+      ]
+    },
+    "f2_replay": {
+      "max_abs_Q": 28.416290283203125,
+      "top_12_Q_square_share": 0.22056181661802562,
+      "top_one_percent_Q_square_share": 0.7002190030477158,
+      "top_12": [
+        {
+          "decision_utc": "2026-08-19T12:00:00.000000000",
+          "symbol": "ETHUSDT",
+          "Q": 28.416290283203125,
+          "Y4": 14.885929107666016
+        },
+        {
+          "decision_utc": "2026-08-19T14:00:00.000000000",
+          "symbol": "ETHUSDT",
+          "Q": 27.574674606323242,
+          "Y4": 12.52970027923584
+        },
+        {
+          "decision_utc": "2026-08-19T13:00:00.000000000",
+          "symbol": "ETHUSDT",
+          "Q": 27.369869232177734,
+          "Y4": 12.272184371948242
+        },
+        {
+          "decision_utc": "2026-08-19T15:00:00.000000000",
+          "symbol": "ETHUSDT",
+          "Q": 20.07423973083496,
+          "Y4": 8.048260688781738
+        },
+        {
+          "decision_utc": "2026-08-21T04:00:00.000000000",
+          "symbol": "BCHUSDT",
+          "Q": 16.62702178955078,
+          "Y4": 11.800947189331055
+        },
+        {
+          "decision_utc": "2026-08-19T12:00:00.000000000",
+          "symbol": "BTCUSDT",
+          "Q": 16.40618896484375,
+          "Y4": 12.345769882202148
+        },
+        {
+          "decision_utc": "2026-08-19T13:00:00.000000000",
+          "symbol": "BTCUSDT",
+          "Q": 15.56800651550293,
+          "Y4": 10.409971237182617
+        },
+        {
+          "decision_utc": "2026-08-21T03:00:00.000000000",
+          "symbol": "BCHUSDT",
+          "Q": 15.264888763427734,
+          "Y4": 10.176424026489258
+        },
+        {
+          "decision_utc": "2026-08-19T14:00:00.000000000",
+          "symbol": "BTCUSDT",
+          "Q": 15.088749885559082,
+          "Y4": 8.723333358764648
+        },
+        {
+          "decision_utc": "2026-09-22T10:00:00.000000000",
+          "symbol": "BCHUSDT",
+          "Q": 14.579519271850586,
+          "Y4": 9.818586349487305
+        },
+        {
+          "decision_utc": "2026-09-22T09:00:00.000000000",
+          "symbol": "BCHUSDT",
+          "Q": 14.542139053344727,
+          "Y4": 8.733386039733887
+        },
+        {
+          "decision_utc": "2026-09-22T12:00:00.000000000",
+          "symbol": "BCHUSDT",
+          "Q": 14.13043212890625,
+          "Y4": 10.098217964172363
+        }
+      ]
+    }
+  },
+  "train_path_scales": {
+    "f1": {
+      "names": [
+        "logT",
+        "Q",
+        "A"
+      ],
+      "std": [
+        0.8026622957826615,
+        3.3825172519576387,
+        0.2805880120709558
+      ],
+      "variance_share": [
+        0.052963215288370745,
+        0.9405646605410618,
+        0.006472124170567546
+      ]
+    },
+    "f2": {
+      "names": [
+        "logT",
+        "Q",
+        "A"
+      ],
+      "std": [
+        0.8068910770850232,
+        8.254661549004856,
+        0.28165083775973426
+      ],
+      "variance_share": [
+        0.009453677140619704,
+        0.9893944805279953,
+        0.0011518423313848843
+      ]
+    }
+  },
+  "source_hashes": {
+    "outputs\\mechanism\\cache_v4\\decision_time.npy": "4338e6ef0c96a49f58c037a384a384879517582190ca1ddb1f462ed7c6382e12",
+    "outputs\\mechanism\\cache_v4\\manifest.json": "405fdef6b27e2e0ce425278a79120b45dd70bec74482ef9459a23e3e2ffc9416",
+    "outputs\\mechanism\\cache_v4\\targets.npy": "76cd08b172fe1340a2b338f6eb0f94098d2020433d1de10aafd220f730735729",
+    "outputs\\mechanism\\confirm\\f1_proposal_seed20261004\\replay.npz": "233e8a0c5cd5f7e3ad481bbc7290775d293e14ef6398d843e3a994c09151f18b",
+    "outputs\\mechanism\\confirm\\f1_proposal_seed20261004\\summary.json": "2f8844b1e26fdaf66ed5ac96b3a76f9f8e6e61beb3ec389578b0c8bff9f76345",
+    "outputs\\mechanism\\confirm\\f1_proposal_seed20261004\\validation.npz": "890ccd0a8d5c4f97efd78c5873629be4cab9c70d34c3a7cb87c16adcf95f61a7",
+    "outputs\\mechanism\\confirm\\f2_selected_seed20261004\\replay.npz": "9cc87e317da2d50e53cdccc5c20cc6be5061b49e3e91ee05ad051c6b30e9ad67",
+    "outputs\\mechanism\\confirm\\f2_selected_seed20261004\\summary.json": "28011abcbea8e093d85c32b34cb3697e3e85c7d40f3141672eebe3c8977eee80",
+    "outputs\\mechanism\\confirm\\f2_selected_seed20261004\\validation.npz": "daf338bcfaab55a5e06c78e6be1f449a320b2a3655dff044e9fd74b6c2f63167",
+    "outputs\\mechanism\\ensemble_f1_replay.npz": "88c1570c74046bf1677f01d2c67a77840cd8335bd6aae060b78bda1cf810d483",
+    "outputs\\mechanism\\ensemble_f1_validation.npz": "9b6f4324b85c005aebb3a2641e5a428d30c0e5f95d4c61ea7ccdb44120819b16",
+    "outputs\\mechanism\\ensemble_f2_replay.npz": "447d63e61715d928c8dfa1667dc9b08f68983db37f96462aa4d81298bc87624e",
+    "outputs\\mechanism\\ensemble_f2_validation.npz": "7921f03df6aa77391d08dfea12e2b541e1e2b9fd4ccf0609a49b4a322c754fb7",
+    "outputs\\mechanism\\head_diagnostics.json": "55d25e35b286d93790b7ff12c1dff50ea7b0145f58a3a0f48430b72cf83ecea0",
+    "outputs\\mechanism\\runtime_manifest.json": "9ff07f2c5d24943d1e2d130e1ed3e7e066a205d80234967fe754404aabe65888"
+  },
+  "current_vs_analysis_source_hash_mismatches": [
+    "scripts\\build_mechanism_report.py",
+    "scripts\\run_mechanism_research.py"
+  ]
+}

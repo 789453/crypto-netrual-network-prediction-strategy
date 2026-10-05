@@ -1,5 +1,7 @@
 # 数据审计与时间可用性合同
 
+> 本页保留2026-10-03的历史审计。2026-10-04新增的一分钟数据已在v4全量核验：十二币共23,552,640行，并统一重建5m/1h输入和标签。下文“本目录没有1m”仅指旧审计当时的覆盖；现行事实与差异对账见[v4研究报告](V4_MECHANISM_RESEARCH_REPORT_2026-10-04.md)及[特征字典](V4_FEATURE_DICTIONARY_2026-10-04.md)。
+
 审计日期：2026-10-03（北京时间）。数据源为本地 `D:/Trading/practical_crypto_strategy/data/parquet`。以下是文件事实，不是数据已可直接用于无泄漏训练的证明。使用 `universal` 环境的 PyArrow 读取 48 个 Parquet 的 schema、行数及 row-group 空值统计；逐行读取全部 12 个合约的 5m `date` 检查连续性，并抽查 BTC、ETH、SOL 衍生列的首末有效时间。
 
 ## 文件与覆盖

@@ -1,0 +1,282 @@
+{
+  "cost_per_side": 0.0002,
+  "funding_in_plotted_equity": false,
+  "policy_rerun": false,
+  "training_or_inference_rerun": false,
+  "signals_start": "2025-01-01",
+  "calibrated_projection_start": "2025-02-01",
+  "saved_holdings_start": "2025-07-01T00:01:00.000000000",
+  "last_price": "2026-09-24T23:59:00.000000000",
+  "statistics": {
+    "portfolio": {
+      "primary": {
+        "return": 0.8466516816476448,
+        "drawdown": -0.2383605355076731,
+        "benchmark_same_period_return": -0.18515793468459174,
+        "benchmark_jan_return": -0.2905243082642949,
+        "mean_abs_weight": 0.3966807157312494,
+        "fee_initial_equity": 0.34084977434366065
+      },
+      "rank": {
+        "return": 0.6145380549568287,
+        "drawdown": -0.17244963592052487,
+        "benchmark_same_period_return": -0.18515793468459174,
+        "benchmark_jan_return": -0.2905243082642949,
+        "mean_abs_weight": 1.9986365070558518,
+        "fee_initial_equity": 0.15085386719221885
+      }
+    },
+    "ADAUSDT": {
+      "primary": {
+        "return": -0.23189478075760928,
+        "drawdown": -0.8731326990491147,
+        "benchmark_same_period_return": -0.5676554898810448,
+        "benchmark_jan_return": -0.7074744975301132,
+        "mean_abs_weight": 0.03179643435282997,
+        "fee_initial_equity": 0.41473776839022736
+      },
+      "rank": {
+        "return": -0.12514805054469336,
+        "drawdown": -1.099977639559273,
+        "benchmark_same_period_return": -0.5676554898810448,
+        "benchmark_jan_return": -0.7074744975301132,
+        "mean_abs_weight": 0.16656004287692733,
+        "fee_initial_equity": 0.21073627242920762
+      }
+    },
+    "AVAXUSDT": {
+      "primary": {
+        "return": 3.1307650330112926,
+        "drawdown": -0.6756735328927588,
+        "benchmark_same_period_return": -0.4328083756682247,
+        "benchmark_jan_return": -0.7147759245238194,
+        "mean_abs_weight": 0.029772199220728345,
+        "fee_initial_equity": 0.32943503053312667
+      },
+      "rank": {
+        "return": 3.332286802689996,
+        "drawdown": -0.9986209091900136,
+        "benchmark_same_period_return": -0.4328083756682247,
+        "benchmark_jan_return": -0.7147759245238194,
+        "mean_abs_weight": 0.16651901839191882,
+        "fee_initial_equity": 0.17381083595178065
+      }
+    },
+    "BCHUSDT": {
+      "primary": {
+        "return": 1.8270977171175518,
+        "drawdown": -0.6694667643645192,
+        "benchmark_same_period_return": -0.3314191112580299,
+        "benchmark_jan_return": -0.22152573606568937,
+        "mean_abs_weight": 0.04100183330955325,
+        "fee_initial_equity": 0.38575312001281914
+      },
+      "rank": {
+        "return": 2.5050432679517023,
+        "drawdown": -0.4094770379664836,
+        "benchmark_same_period_return": -0.3314191112580299,
+        "benchmark_jan_return": -0.22152573606568937,
+        "mean_abs_weight": 0.16655915312159333,
+        "fee_initial_equity": 0.1744967723285847
+      }
+    },
+    "BNBUSDT": {
+      "primary": {
+        "return": 1.2489681487461075,
+        "drawdown": -0.1738655523991629,
+        "benchmark_same_period_return": 0.1819539021066081,
+        "benchmark_jan_return": 0.10640366051809225,
+        "mean_abs_weight": 0.014888103251150885,
+        "fee_initial_equity": 0.14646973872025548
+      },
+      "rank": {
+        "return": 0.26272133230634953,
+        "drawdown": -1.1033197297894561,
+        "benchmark_same_period_return": 0.1819539021066081,
+        "benchmark_jan_return": 0.10640366051809225,
+        "mean_abs_weight": 0.16655504297335158,
+        "fee_initial_equity": 0.18128842817849733
+      }
+    },
+    "BTCUSDT": {
+      "primary": {
+        "return": -0.13421495617460844,
+        "drawdown": -0.5778973288699958,
+        "benchmark_same_period_return": -0.21234186440224112,
+        "benchmark_jan_return": -0.09900480632998099,
+        "mean_abs_weight": 0.01186007764213817,
+        "fee_initial_equity": 0.12759550535701936
+      },
+      "rank": {
+        "return": -0.661734464875166,
+        "drawdown": -0.8621953991177596,
+        "benchmark_same_period_return": -0.21234186440224112,
+        "benchmark_jan_return": -0.09900480632998099,
+        "mean_abs_weight": 0.1664943899477839,
+        "fee_initial_equity": 0.14289667952192855
+      }
+    },
+    "DOGEUSDT": {
+      "primary": {
+        "return": 0.8207609718552271,
+        "drawdown": -0.5205954681681382,
+        "benchmark_same_period_return": -0.4204172553748776,
+        "benchmark_jan_return": -0.6971263655335287,
+        "mean_abs_weight": 0.03323496804119228,
+        "fee_initial_equity": 0.3779016715791736
+      },
+      "rank": {
+        "return": -0.195863419275084,
+        "drawdown": -1.123442941616994,
+        "benchmark_same_period_return": -0.4204172553748776,
+        "benchmark_jan_return": -0.6971263655335287,
+        "mean_abs_weight": 0.16658491701550726,
+        "fee_initial_equity": 0.18525996784739995
+      }
+    },
+    "ETHUSDT": {
+      "primary": {
+        "return": -0.5711670357710856,
+        "drawdown": -0.8726940540761795,
+        "benchmark_same_period_return": 0.08128550884043007,
+        "benchmark_jan_return": -0.1952818737323777,
+        "mean_abs_weight": 0.04643421684494443,
+        "fee_initial_equity": 0.4573758124736216
+      },
+      "rank": {
+        "return": -0.20896352673440832,
+        "drawdown": -1.2807949097111617,
+        "benchmark_same_period_return": 0.08128550884043007,
+        "benchmark_jan_return": -0.1952818737323777,
+        "mean_abs_weight": 0.16654202156857717,
+        "fee_initial_equity": 0.10547541819616928
+      }
+    },
+    "LINKUSDT": {
+      "primary": {
+        "return": 0.3122690774252772,
+        "drawdown": -0.5008332231482348,
+        "benchmark_same_period_return": -0.0125117534458703,
+        "benchmark_jan_return": -0.3402599512078395,
+        "mean_abs_weight": 0.028516201068211823,
+        "fee_initial_equity": 0.3624001572467682
+      },
+      "rank": {
+        "return": 0.31754094403841604,
+        "drawdown": -1.2852746365832959,
+        "benchmark_same_period_return": -0.0125117534458703,
+        "benchmark_jan_return": -0.3402599512078395,
+        "mean_abs_weight": 0.1665716300320412,
+        "fee_initial_equity": 0.15946052152975004
+      }
+    },
+    "LTCUSDT": {
+      "primary": {
+        "return": 3.639241063901939,
+        "drawdown": -0.4337778756932136,
+        "benchmark_same_period_return": -0.16442494185648615,
+        "benchmark_jan_return": -0.3042938195137942,
+        "mean_abs_weight": 0.04776268494922496,
+        "fee_initial_equity": 0.4492686235169667
+      },
+      "rank": {
+        "return": 0.35936560137927964,
+        "drawdown": -1.1621465314241837,
+        "benchmark_same_period_return": -0.16442494185648615,
+        "benchmark_jan_return": -0.3042938195137942,
+        "mean_abs_weight": 0.16658343385926616,
+        "fee_initial_equity": 0.03692597458538897
+      }
+    },
+    "SOLUSDT": {
+      "primary": {
+        "return": 0.6956853896430806,
+        "drawdown": -0.6996943714340791,
+        "benchmark_same_period_return": -0.24466625310684897,
+        "benchmark_jan_return": -0.3833611909691046,
+        "mean_abs_weight": 0.04005961389601092,
+        "fee_initial_equity": 0.4595996499568241
+      },
+      "rank": {
+        "return": 2.5316685718049268,
+        "drawdown": -0.7946759902252603,
+        "benchmark_same_period_return": -0.24466625310684897,
+        "benchmark_jan_return": -0.3833611909691046,
+        "mean_abs_weight": 0.1665668532970648,
+        "fee_initial_equity": 0.09036513603179913
+      }
+    },
+    "TRXUSDT": {
+      "primary": {
+        "return": -0.7451525037497176,
+        "drawdown": -1.0412272107434297,
+        "benchmark_same_period_return": 0.2162373235958217,
+        "benchmark_jan_return": 0.3355624816257132,
+        "mean_abs_weight": 0.036424235332916326,
+        "fee_initial_equity": 0.22246513476535387
+      },
+      "rank": {
+        "return": 0.2796756945105443,
+        "drawdown": -0.6266147391020469,
+        "benchmark_same_period_return": 0.2162373235958217,
+        "benchmark_jan_return": 0.3355624816257132,
+        "mean_abs_weight": 0.16651286101503326,
+        "fee_initial_equity": 0.2247113870319643
+      }
+    },
+    "XRPUSDT": {
+      "primary": {
+        "return": 0.16746205452428775,
+        "drawdown": -0.5478088561070922,
+        "benchmark_same_period_return": -0.3151269057643358,
+        "benchmark_jan_return": -0.2651536759090972,
+        "mean_abs_weight": 0.034930147822348094,
+        "fee_initial_equity": 0.357195079571771
+      },
+      "rank": {
+        "return": -1.0221360937699124,
+        "drawdown": -1.5497962794403761,
+        "benchmark_same_period_return": -0.3151269057643358,
+        "benchmark_jan_return": -0.2651536759090972,
+        "mean_abs_weight": 0.16658714295678687,
+        "fee_initial_equity": 0.12481901267415534
+      }
+    }
+  },
+  "funding_removed_initial_equity": {
+    "primary": 0.0238687224790717,
+    "rank": -0.0031561488597159413
+  },
+  "sources_sha256": {
+    "outputs\\alpha_strategy\\price.npy": "0fdf5785a53a9a683483592fa7eff447069ea0c4f544e618e135d1cf54ef3dad",
+    "outputs\\alpha_strategy\\execution.npy": "23550007bd55caff4e5470e8ee4149ec18b44bbae41130ce7bdb56b793184381",
+    "outputs\\mechanism\\cache_v4\\decision_time.npy": "4338e6ef0c96a49f58c037a384a384879517582190ca1ddb1f462ed7c6382e12",
+    "outputs\\alpha_strategy\\v5_anchor_return4.npy": "16395ba70aadb95ba9fec0130105c16d6e513ae5df3204cfc25f7664a85380d7",
+    "outputs\\alpha_strategy\\calibration.json": "bee08153b70901e4dbb6fdd0534c421df89f1b047ed265b60e97c24a0fad6e30",
+    "outputs\\alpha_strategy\\market_manifest.json": "b586d3d32af08ea022703b0050cb1a5fa0f7f2cbc2099f173c3192184a33df13",
+    "outputs\\alpha_strategy\\monthly\\2025-02\\predictions.npz": "df0441b01180b64cf9be0b2a885c012ef9dbf07affe797aae43c604f0ef84975",
+    "outputs\\alpha_strategy\\monthly\\2025-03\\predictions.npz": "5ccfd1e780ba7753a4dd97e402f486d9493c2fc1bc2f22fd60180912a37c964f",
+    "outputs\\alpha_strategy\\monthly\\2025-04\\predictions.npz": "b9f908c7c02056515299601aee9c17e2024e3c1f9f2ad13321e29453ddbbcc6b",
+    "outputs\\alpha_strategy\\monthly\\2025-05\\predictions.npz": "a13c7bff34f3b9ea16d0d62c851655952ee755989054c21194c1b0b14754a6af",
+    "outputs\\alpha_strategy\\monthly\\2025-06\\predictions.npz": "2b2b760262bf607148dab85ae788cb2e05d715bbb12ab509ad28d94986d9f0db",
+    "outputs\\alpha_strategy\\monthly\\2025-07\\predictions.npz": "bd899bd1e2453ea05faf63cb26a98019890a547c8f727f68ec17190c953fcbe3",
+    "outputs\\alpha_strategy\\monthly\\2025-08\\predictions.npz": "d2ec13a47734b52af8a4575133a3ca686e3a0f2c02b4e52eb6d5bed8b311c74d",
+    "outputs\\alpha_strategy\\monthly\\2025-09\\predictions.npz": "17100160febc297f66ad7a71bf7945a8ffb8c39c022bd6f0990d737a51f2c251",
+    "outputs\\alpha_strategy\\monthly\\2025-10\\predictions.npz": "ea272a4a0091c2fe9440bdefb84a7aa22317d4d2ce3c149d5159db0fc761ce11",
+    "outputs\\alpha_strategy\\monthly\\2025-11\\predictions.npz": "e24509b4a869671861c6f479717b3bd5f1059e7d2513ca98ec3a0e7881eb8295",
+    "outputs\\alpha_strategy\\monthly\\2025-12\\predictions.npz": "b81a8e2c6813d642e94c481fe21ee1bbc79b00e875dd624be170977123efd085",
+    "outputs\\alpha_strategy\\monthly\\2026-01\\predictions.npz": "507d293b7125036109eee3c7f97f8f3dc673c26b0a4d11aaed0b0952c9688d94",
+    "outputs\\alpha_strategy\\monthly\\2026-02\\predictions.npz": "e651a777f170297f9a4e656fd8d899fcd08708d358d1551170a01182ecb939c4",
+    "outputs\\alpha_strategy\\monthly\\2026-03\\predictions.npz": "bdadf66d7036795181833083aa3fd76d7f92d264425d80f508d6e946d49c69d9",
+    "outputs\\alpha_strategy\\monthly\\2026-04\\predictions.npz": "e5b3ae0e994cdc15b50a46b76d10db9b9138db0541601e4862620483317716b5",
+    "outputs\\alpha_strategy\\monthly\\2026-05\\predictions.npz": "dd78622bb94203998afad3c9e7cf80265ee4885a85ac8293463c45739633af55",
+    "outputs\\alpha_strategy\\monthly\\2026-06\\predictions.npz": "891fe292e71aa559549c6979031c1b7e6c34c8e12a267454e0280f4ee9aa1fcd",
+    "outputs\\alpha_strategy\\monthly\\2026-07\\predictions.npz": "08c9af867466d0933559524563f9432228b814b4222a6d5c2ff01c4718f2f5ce",
+    "outputs\\alpha_strategy\\monthly\\2026-08\\predictions.npz": "1d69fead2a7014df36fca4d3afe77d0d7eb7ba4c22f7ecbbdc16bb79abb2ad1e",
+    "outputs\\alpha_strategy\\monthly\\2026-09\\predictions.npz": "0875820e33fb9ff3fd395802ba0f1c9522a27f7ce2b6b7788a35aa1fbeabd34e",
+    "outputs\\alpha_strategy\\unified_predictions.npz": "f5606f3f238a330ef7e25b3140a1998faaf2283f23b7a662b06bcb9515d19b4b",
+    "outputs\\alpha_strategy\\account_Frozen_v5_2bp.npz": "b738bb96b2cd84d13f14716d3ca63f054d19e27af5c0d061b3bd5d00d6f7dca2",
+    "outputs\\alpha_strategy\\primary_rank_2.0_2bp.npz": "4e6ea375c4efd3b6b3889839cadbd7d0d282e61a0ddbb51d6a9b01c5281d7595"
+  },
+  "semantics": "Keep saved 2bp actual quantities and fees; price PnL minus trading fees only. Coin ledger normalized to initial 1/12 capital; its arithmetic mean exactly equals total. This is fixed-path cost restatement, not reselected/rebalanced no-funding strategy."
+}

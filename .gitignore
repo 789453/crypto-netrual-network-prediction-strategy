@@ -7,6 +7,14 @@ data/
 *.pth
 *.ckpt
 *.onnx
+*.safetensors
+*.npy
+*.npz
+*.h5
+*.hdf5
+*.joblib
+*.pkl
+*.pickle
 *.zip
 *.tar
 *.log

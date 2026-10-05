@@ -1,0 +1,2 @@
+# Preserve generated research artifacts and their recorded content hashes.
+reports/** -whitespace

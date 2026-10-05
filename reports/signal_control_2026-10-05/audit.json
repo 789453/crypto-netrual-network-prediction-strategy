@@ -1,0 +1,165 @@
+{
+  "passed": true,
+  "sources_unchanged": true,
+  "source_file_count": 35,
+  "causal_calibration_maturity_checked": true,
+  "selection_locked_before_historical_accounts": true,
+  "neural_training_or_inference": false,
+  "accounts": {
+    "A": {
+      "cash_identity_error": 5.828670879282072e-16,
+      "fee_error": 0.0,
+      "episodes_identity_error": 4.440892098500626e-16,
+      "recorded_trades_identity": true,
+      "terminal_close_recorded": true
+    },
+    "B": {
+      "cash_identity_error": 3.653327640407156e-15,
+      "fee_error": 0.0,
+      "episodes_identity_error": 3.766339974273225e-11,
+      "recorded_trades_identity": true,
+      "terminal_close_recorded": true
+    },
+    "C": {
+      "cash_identity_error": 2.8727020762175925e-15,
+      "fee_error": 1.734723475976807e-18,
+      "episodes_identity_error": 2.789435349370706e-15,
+      "recorded_trades_identity": true,
+      "terminal_close_recorded": true
+    },
+    "D": {
+      "cash_identity_error": 1.0130785099704553e-15,
+      "fee_error": 1.734723475976807e-18,
+      "episodes_identity_error": 9.575673587391975e-16,
+      "recorded_trades_identity": true,
+      "terminal_close_recorded": true
+    },
+    "C_low": {
+      "cash_identity_error": 1.1657341758564144e-15,
+      "fee_error": 0.0,
+      "episodes_identity_error": 1.1934897514720433e-15,
+      "recorded_trades_identity": true,
+      "terminal_close_recorded": true
+    },
+    "C_high": {
+      "cash_identity_error": 3.219646771412954e-15,
+      "fee_error": 1.734723475976807e-18,
+      "episodes_identity_error": 3.219646771412954e-15,
+      "recorded_trades_identity": true,
+      "terminal_close_recorded": true
+    },
+    "old_gate8bp": {
+      "cash_identity_error": 5.329070518200751e-15,
+      "fee_error": 5.551115123125783e-17,
+      "episodes_identity_error": 3.552713678800501e-15,
+      "recorded_trades_identity": true,
+      "terminal_close_recorded": true
+    },
+    "old_gate4bp": {
+      "cash_identity_error": 2.9976021664879227e-15,
+      "fee_error": 5.551115123125783e-17,
+      "episodes_identity_error": 2.6645352591003757e-15,
+      "recorded_trades_identity": true,
+      "terminal_close_recorded": true
+    },
+    "rank_guarded": {
+      "cash_identity_error": 1.0325074129013956e-14,
+      "fee_error": 5.551115123125783e-17,
+      "episodes_identity_error": 1.1213252548714081e-14,
+      "recorded_trades_identity": true,
+      "terminal_close_recorded": true
+    },
+    "rank_native": {
+      "cash_identity_error": 4.773959005888173e-15,
+      "fee_error": 0.0,
+      "episodes_identity_error": 4.440892098500626e-15,
+      "recorded_trades_identity": true,
+      "terminal_close_recorded": true
+    },
+    "selected_no_friction": {
+      "cash_identity_error": 4.191091917959966e-15,
+      "fee_error": 0.0,
+      "episodes_identity_error": 1.9034718246047078e-11,
+      "recorded_trades_identity": true,
+      "terminal_close_recorded": true
+    },
+    "selected_expiry12": {
+      "cash_identity_error": 6.071532165918825e-16,
+      "fee_error": 6.938893903907228e-18,
+      "episodes_identity_error": 5.793976409762536e-16,
+      "recorded_trades_identity": true,
+      "terminal_close_recorded": true
+    },
+    "selected_fee4bp": {
+      "cash_identity_error": 2.0261570199409107e-15,
+      "fee_error": 6.938893903907228e-18,
+      "episodes_identity_error": 2.0539125955565396e-15,
+      "recorded_trades_identity": true,
+      "terminal_close_recorded": true
+    },
+    "selected_funding": {
+      "cash_identity_error": 2.3522850334245504e-15,
+      "fee_error": 0.0,
+      "episodes_identity_error": 2.3349377986647823e-15
+    },
+    "E": {
+      "cash_identity_error": 1.021405182655144e-14,
+      "episodes_identity_error": 4.277556087117773e-11,
+      "fee_error": 0.0
+    },
+    "E_core_only": {
+      "cash_identity_error": 3.9968028886505635e-15,
+      "fee_error": 0.0,
+      "episodes_identity_error": 3.9968028886505635e-15
+    }
+  },
+  "tested_accounts": 16,
+  "code_sha256": {
+    "scripts/run_signal_control.py": "ad57928bbc64282742f4cc8e6e3f8676cde65cfa426e9f395dbacb22dce373be",
+    "src/crypto_timing/alpha_control_policy.py": "ac1442286c413601a1dfacaf8604ce76932e30de01e6e47070e204d19623f301",
+    "src/crypto_timing/alpha_account.py": "08836553afc50e1bd31ed803282ab9b4a289959bf307287d356a79e92f3949db",
+    "scripts/run_signal_control_extension.py": "191fb3a93c910e38bb7a31f980c32b5b194033807471b0e55750a3f2d046b9c4",
+    "scripts/analyze_signal_control.py": "d2a168fc12c9cb20b6607c02c64d4081a642c60e5918e23f71c32ed1c2819a2f",
+    "scripts/run_signal_core_ablation.py": "68cb025fc67242072081b7adc660b11c213fb472dc135082711bef3deaf4c3e3"
+  },
+  "minute_hard_cap_audit": {
+    "D": {
+      "maximum_minute_gross": 0.5071792804874757,
+      "hours_above_normal_cap_plus5pct": 0,
+      "hours_above_hard_cap3": 0
+    },
+    "E": {
+      "maximum_minute_gross": 2.077931751804939,
+      "hours_above_normal_cap_plus5pct": 0,
+      "hours_above_hard_cap3": 0
+    },
+    "E_core_only": {
+      "maximum_minute_gross": 2.082806864516058,
+      "hours_above_normal_cap_plus5pct": 0,
+      "hours_above_hard_cap3": 0
+    },
+    "old_gate8bp": {
+      "maximum_minute_gross": 2.082806864516059,
+      "hours_above_normal_cap_plus5pct": 0,
+      "hours_above_hard_cap3": 0
+    },
+    "old_gate4bp": {
+      "maximum_minute_gross": 2.0652128724411405,
+      "hours_above_normal_cap_plus5pct": 0,
+      "hours_above_hard_cap3": 0
+    },
+    "rank_guarded": {
+      "maximum_minute_gross": 2.0998394529441162,
+      "hours_above_normal_cap_plus5pct": 0,
+      "hours_above_hard_cap3": 0
+    },
+    "rank_native": {
+      "maximum_minute_gross": 2.2194356130635966,
+      "hours_above_normal_cap_plus5pct": 157,
+      "hours_above_hard_cap3": 0
+    }
+  },
+  "E_role_pnl_reconciles": true,
+  "E_normal_basket_spacing_verified": true,
+  "pytest_passed_tests": 36
+}
